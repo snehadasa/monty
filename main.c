@@ -68,6 +68,7 @@ int main(int ac, char **av)
 			if (gl_status == EOF)
 				break;
 			opcode = strtok(*buffer, " \t\n");
+			printf("opcode: %s\n", opcode);
 			if (get_op(opcode))
 			{
 				if (opcode)
@@ -75,8 +76,10 @@ int main(int ac, char **av)
 					n_str = strtok(NULL, " \t\n");
 					if (n_str)
 						n = atoi(n_str);
+					else
+						n = line_number;
 				}
-				get_op(opcode)(&top, line_number);
+				get_op(opcode)(&top, n);
 			}
 		}
 	}
