@@ -44,7 +44,7 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 	return (function[i].f);
 }
 
-/*void free_stack(stack_t *stack)
+void free_stack(stack_t *stack)
 {
 	stack_t *temp;
 
@@ -58,7 +58,7 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 		stack = temp;
 	}
 	stack = NULL;
-}*/
+}
 
 int main(int ac, char **av)
 {
@@ -85,9 +85,12 @@ int main(int ac, char **av)
 			line_number++;
 			gl_status = getline(buffer, &bufsize, file);
 			if (gl_status == EOF)
+			{
+				free(buffer);
 				break;
+			}
 			opcode = strtok(*buffer, " \t\n");
-			printf("opcode: %s\n", opcode);
+		//	printf("opcode: %s\n", opcode);
 			if (get_op(opcode))
 			{
 				if (opcode)
@@ -102,6 +105,9 @@ int main(int ac, char **av)
 			}
 		}
 	}
+	free(buffer);
+	free_stack(top);
+	fclose(file);
 	return (0);
 }
 
