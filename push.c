@@ -6,13 +6,16 @@
  * @line_number: number to be added.
  * Return: void.
  */
-void push(stack_t **stack, unsigned int line_number)
+void push(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	stack_t *temp;
 
 	temp = malloc(sizeof(stack_t));
 	if (!temp)
-		return;
+	{
+		printf("Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
 
 	temp->n = n;
 
@@ -31,7 +34,7 @@ void push(stack_t **stack, unsigned int line_number)
  * @line_number: the current pointing line
  * Return: elements in the list "h".
  */
-void pall(stack_t **stack, unsigned int line_number)
+void pall(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	stack_t *current = *stack;
 
@@ -45,3 +48,4 @@ void pall(stack_t **stack, unsigned int line_number)
 		printf("%d\n", current->n);
 		current = current->next;
 	}
+}

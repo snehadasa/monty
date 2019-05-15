@@ -17,23 +17,16 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 		printf("Wrong number of args, try again dipass\n");
-	while (gl_status != EOF)
-	{
-		if (!access(av[1], R_OK)
-				file = fopen(av[1], "r");
-		gl_status = getline(buffer, &bufsize, file);
-		printf("%s", *buffer);
-		printf("getline returned %d\n", gl_status);
-	}
 	if (!access(av[1], R_OK))
 	{
 		file = fopen(av[1], "r");
-	/*	while (gl_status != EOF)
+		while (1)
 		{
 			gl_status = getline(buffer, &bufsize, file);
+			if (gl_status == EOF)
+				break;
 			printf("%s", *buffer);
-			printf("getline returned %d\n", gl_status);
-		}*/
+		}
 	}
 	return (0);
 }
