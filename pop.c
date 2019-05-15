@@ -10,7 +10,7 @@
 void pop(stack_t **stack,  __attribute__((unused)) unsigned int line_number)
 {
 	stack_t *delete_node = *stack;
-	unsigned int idx;
+	unsigned int idx = 0;
 
 	if (!stack || (*stack == NULL))
 		return;

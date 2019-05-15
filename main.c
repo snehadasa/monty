@@ -24,8 +24,12 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 		{"nop", NULL},
 		{"pint", pint},
 		{"pop", pop},
-	/*	{"swap", swap},
-		{"add", add},*/
+		{"swap", swap},
+		{"add", add},
+		{"sub", sub},
+		{"quo", quo},
+		{"product", product},
+		{"rem", rem},
 		{NULL, NULL}
 	};
 	int i = 0;
@@ -39,6 +43,22 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 
 	return (function[i].f);
 }
+
+/*void free_stack(stack_t *stack)
+{
+	stack_t *temp;
+
+	if (stack == NULL)
+		return;
+
+	while (stack)
+	{
+		temp = stack->next;
+		free(stack);
+		stack = temp;
+	}
+	stack = NULL;
+}*/
 
 int main(int ac, char **av)
 {
