@@ -8,32 +8,77 @@ Use fgets to read the file*/
 #include <unistd.h>
 #include <fcntl.h>
 
+int n = 0;
+
+/**
+ * get_op - selects correct function for format
+ * @s: input format identifier
+ *
+ * Return: pointer to matching function
+ */
+void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
+{
+	instruction_t function[] = {
+		{"push", push},
+		{"pall", pall},
+		/*{"nop", nop},
+		{"pint", pint},
+		{"pop", pop},
+		{"swap", swap},
+		{"add", add},*/
+		{NULL, NULL}
+	};
+
+	int i = 0;
+
+	while (function[i].opcode)
+	{
+		if (!strcmp(s, function[i].opcode))
+			break;
+		i++;
+	}
+
+	return (function[i].f);
+}
+
 int main(int ac, char **av)
 {
 	FILE *file;
 	char **buffer = malloc(256);
 	size_t bufsize = 256;
 	int gl_status;
+	char *opcode = NULL, *n_str = NULL;
+	int line_number = 0;
+	stack_t *top = NULL;
 
 	if (ac != 2)
 		printf("Wrong number of args, try again dipass\n");
-	while (gl_status != EOF)
+	if (access(av[1], R_OK))
 	{
-		if (!access(av[1], R_OK)
-				file = fopen(av[1], "r");
-		gl_status = getline(buffer, &bufsize, file);
-		printf("%s", *buffer);
-		printf("getline returned %d\n", gl_status);
+		printf("Error: Can't open file %s\n", av[1]);
+		exit(EXIT_FAILURE);
 	}
-	if (!access(av[1], R_OK))
+	else
 	{
 		file = fopen(av[1], "r");
-	/*	while (gl_status != EOF)
+		while (1)
 		{
+			line_number++;
 			gl_status = getline(buffer, &bufsize, file);
-			printf("%s", *buffer);
-			printf("getline returned %d\n", gl_status);
-		}*/
+			if (gl_status == EOF)
+				break;
+			opcode = strtok(*buffer, " \t\n");
+			if (get_op(opcode))
+			{
+				if (opcode)
+				{
+					n_str = strtok(NULL, " \t\n");
+					if (n_str)
+						n = atoi(n_str);
+				}
+				get_op(opcode)(&top, line_number);
+			}
+		}
 	}
 	return (0);
 }
