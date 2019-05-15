@@ -21,14 +21,13 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 	instruction_t function[] = {
 		{"push", push},
 		{"pall", pall},
-		/*{"nop", nop},
+		{"nop", NULL},
 		{"pint", pint},
 		{"pop", pop},
-		{"swap", swap},
+	/*	{"swap", swap},
 		{"add", add},*/
 		{NULL, NULL}
 	};
-
 	int i = 0;
 
 	while (function[i].opcode)
