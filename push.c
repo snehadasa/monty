@@ -1,5 +1,7 @@
 #include "monty.h"
 
+int n;
+
 /**
  * push - to add the node at the beginning of the list.
  * @stack: head of the doubly linked list.
