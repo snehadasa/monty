@@ -1,9 +1,3 @@
-/*Given a .m file...
-Check if ac = 2
-Check if file exists
-Open file and assign it to an fd var
-Use fgets to read the file*/
-
 #include "monty.h"
 #include <unistd.h>
 #include <fcntl.h>
@@ -26,10 +20,10 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
-		{"sub", sub},
+		/*{"sub", sub},
 		{"div", div},
 		{"mul", mul},
-		{"mod", mod},
+		{"mod", mod},*/
 		{NULL, NULL}
 	};
 	int i = 0;
@@ -63,8 +57,8 @@ void free_stack(stack_t *stack)
 int main(int ac, char **av)
 {
 	FILE *file;
-	char **buffer = malloc(256);
-	size_t bufsize = 256;
+	char *buffer = NULL;
+	size_t bufsize = 0;
 	int gl_status;
 	char *opcode = NULL, *n_str = NULL;
 	int line_number = 0;
@@ -83,14 +77,15 @@ int main(int ac, char **av)
 		while (1)
 		{
 			line_number++;
-			gl_status = getline(buffer, &bufsize, file);
+			gl_status = getline(&buffer, &bufsize, file);
 			if (gl_status == EOF)
 			{
 				free(buffer);
+				buffer = NULL;
 				break;
 			}
-			opcode = strtok(*buffer, " \t\n");
-		//	printf("opcode: %s\n", opcode);
+			opcode = strtok(buffer, " \t\n");
+			/*printf("opcode: %s\n", opcode);*/
 			if (get_op(opcode))
 			{
 				if (opcode)
@@ -105,7 +100,8 @@ int main(int ac, char **av)
 			}
 		}
 	}
-	free(buffer);
+	if (buffer)
+		free(buffer);
 	free_stack(top);
 	fclose(file);
 	return (0);

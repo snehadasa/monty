@@ -43,7 +43,7 @@ void swap(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 *
 *	stack_t *temp;
 *
-*	/*if (temp)
+*	if (temp)
 *		temp->next = (*stack)->next;
 *
 *	(*stack)->next->prev = temp;
