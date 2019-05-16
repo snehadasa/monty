@@ -13,10 +13,10 @@ int is_digit_string(char *s)
 
 	for (i = 0; s[i]; i++)
 	{
-		if (!isdigit(s[i]))
-			return (0);
+		if (isdigit(s[i]))
+			return (1);
 	}
-	return (1);
+	return (0);
 }
 
 /**
