@@ -10,10 +10,10 @@ void pint(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	stack_t *current = *stack;
 
-        if (current == NULL)
-        {
-                return;
-        }
+	if (current == NULL)
+	{
+		return;
+	}
 
-        printf("%d\n", current->n);
+	 printf("%d\n", current->n);
 }

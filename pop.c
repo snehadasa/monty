@@ -3,24 +3,25 @@
 
 /**
  * pop - delete node at given index.
- * @head: head of the doubly linked list.
- * @index: index at which the node should be deleted.
- * Return: 1 if succeeded, -1 if failed.
+ * @stack: head of the doubly linked list.
+ * @line_number: line number.
+ * Return: void.
  */
 void pop(stack_t **stack,  __attribute__((unused)) unsigned int line_number)
 {
-	stack_t *delete_node = *stack;
-	unsigned int idx = 0;
+	stack_t *delete_node;
+
 
 	if (!stack || (*stack == NULL))
-		return;
-
-	if (idx == 0)
 	{
+		printf("L%u: can't pop an empty stack\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+		delete_node = *stack;
 		*stack = (*stack)->next;
 		if (*stack)
 			(*stack)->prev = NULL;
+
 		free(delete_node);
-		return;
-	}
 }
