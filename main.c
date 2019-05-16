@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-int n;
+char *n_str;
 
 /**
  * get_op - selects correct function for format
@@ -90,7 +90,7 @@ int main(int ac, char **av)
 	char *buffer = NULL;
 	size_t bufsize = 0;
 	int gl_status, line_number = 0;
-	char *opcode = NULL, *n_str = NULL;
+	char *opcode = NULL;
 	stack_t *top = NULL;
 
 	check_args(ac, av[1]);
@@ -107,8 +107,6 @@ int main(int ac, char **av)
 		if (get_op(opcode))
 		{
 			n_str = strtok(NULL, " \t\n");
-			if (n_str)
-				n = atoi(n_str);
 			get_op(opcode)(&top, line_number);
 		}
 		else
