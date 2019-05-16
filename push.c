@@ -1,10 +1,6 @@
 #include "monty.h"
 #include <ctype.h>
 
-void free_stack(stack_t *stack);
-
-char *n_str;
-
 /**
  * is_digit_string - Check if string is all digits
  * @s: String to check
@@ -33,10 +29,12 @@ void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp;
 
-	if (!n_str || !is_digit_string(n_str))
+	if (!globals.n_str || !is_digit_string(globals.n_str))
 	{
 		dprintf(STDERR_FILENO, "L%d: usage: push integer\n", line_number);
 		free_stack(*stack);
+		free(globals.buffer);
+		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
 
@@ -47,7 +45,7 @@ void push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	temp->n = atoi(n_str);
+	temp->n = atoi(globals.n_str);
 
 	temp->next = *stack;
 	temp->prev = NULL;

@@ -13,6 +13,9 @@ void add(stack_t **stack, unsigned int line_number)
 	if (!stack || !(*stack) || !(*stack)->next)
 	{
 		dprintf(STDERR_FILENO, "L%u: can't sub, stack too short\n", line_number);
+		free_stack(*stack);
+		free(globals.buffer);
+		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
 
