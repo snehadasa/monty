@@ -6,17 +6,17 @@
  * @line_number: the current pointing line
  * Return: elements in the list "h".
  */
-void add(stack_t **stack, __attribute__((unused)) unsigned int line_number)
+void add(stack_t **stack, unsigned int line_number)
 {
 	int sum = 0;
 
 	if (!stack || !(*stack) || !(*stack)->next)
 	{
-		printf("L%u: can't add, stack too short\n", line_number);
+		printf("L%u: can't sub, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	sum = (*stack)->n + ((*stack)->next)->n;
+	sum = (*stack)->n  ((*stack)->next)->n;
 
 	((*stack)->next)->n = sum;
 
