@@ -54,6 +54,24 @@ void free_stack(stack_t *stack)
 	stack = NULL;
 }
 
+FILE *open_file(int aycee, char *av_one)
+{
+	FILE *file;
+
+	if (aycee != 2)
+	{
+		fprintf(stderr, "Usage: monty file\n");
+		exit(EXIT_FAILURE);
+	}
+	file = fopen(av_one, "r");
+	if (!file)
+	{
+		fprintf(stderr, "Can't open file %s\n", av_one);
+		exit(EXIT_FAILURE);
+	}
+	return (file);
+}
+
 int main(int ac, char **av)
 {
 	FILE *file;
@@ -64,40 +82,31 @@ int main(int ac, char **av)
 	int line_number = 0;
 	stack_t *top = NULL;
 
-	if (ac != 2)
-		printf("Wrong number of args, try again dipass\n");
-	if (access(av[1], R_OK))
+	file = open_file(ac, av[1]);
+
+	while (1)
 	{
-		printf("Error: Can't open file %s\n", av[1]);
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		file = fopen(av[1], "r");
-		while (1)
+		line_number++;
+		gl_status = getline(&buffer, &bufsize, file);
+		if (gl_status == EOF)
 		{
-			line_number++;
-			gl_status = getline(&buffer, &bufsize, file);
-			if (gl_status == EOF)
+			free(buffer);
+			buffer = NULL;
+			break;
+		}
+		opcode = strtok(buffer, " \t\n");
+		/*printf("opcode: %s\n", opcode);*/
+		if (get_op(opcode))
+		{
+			if (opcode)
 			{
-				free(buffer);
-				buffer = NULL;
-				break;
+				n_str = strtok(NULL, " \t\n");
+				if (n_str)
+					n = atoi(n_str);
+				else
+					n = line_number;
 			}
-			opcode = strtok(buffer, " \t\n");
-			/*printf("opcode: %s\n", opcode);*/
-			if (get_op(opcode))
-			{
-				if (opcode)
-				{
-					n_str = strtok(NULL, " \t\n");
-					if (n_str)
-						n = atoi(n_str);
-					else
-						n = line_number;
-				}
-				get_op(opcode)(&top, n);
-			}
+			get_op(opcode)(&top, n);
 		}
 	}
 	if (buffer)
