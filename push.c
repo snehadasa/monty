@@ -42,6 +42,9 @@ void push(stack_t **stack, unsigned int line_number)
 	if (!temp)
 	{
 		dprintf(STDERR_FILENO, "Error: malloc failed\n");
+		free_stack(*stack);
+		free(globals.buffer);
+		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
 
