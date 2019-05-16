@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-globals_t globals = {NULL, NULL, NULL};
+globals_t globals;
 
 /**
  * get_op - selects correct function for format

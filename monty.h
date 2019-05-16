@@ -47,12 +47,14 @@ typedef struct instruction_s
  *
  * Description: Globals to free from anywhere
  */
-typedef extern struct globals_s =
+typedef struct globals_s
 {
 	char *n_str;
 	char *buffer;
 	FILE *file;
 } globals_t;
+
+extern globals_t globals;
 
 void pall(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
