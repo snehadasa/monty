@@ -6,13 +6,14 @@
  * @line_number: the current pointing line
  * Return: elements in the list "h".
  */
-void pint(stack_t **stack, __attribute__((unused)) unsigned int line_number)
+void pint(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current = *stack;
 
-	if (current == NULL)
+	if (!stack || !(*stack))
 	{
-		return;
+		printf("L%u: can't pint, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
 	}
 
 	 printf("%d\n", current->n);

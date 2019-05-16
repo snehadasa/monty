@@ -69,7 +69,10 @@ int main(int ac, char **av)
 	stack_t *top = NULL;
 
 	if (ac != 2)
-		printf("Wrong number of args, try again dipass\n");
+	{
+		printf(" USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
 	if (access(av[1], R_OK))
 	{
 		printf("Error: Can't open file %s\n", av[1]);
@@ -81,11 +84,7 @@ int main(int ac, char **av)
 		line_number++;
 		gl_status = getline(&buffer, &bufsize, file);
 		if (gl_status == EOF)
-		{
-			free(buffer);
-			buffer = NULL;
 			break;
-		}
 		opcode = strtok(buffer, " \t\n");
 		if (get_op(opcode))
 		{
