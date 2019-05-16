@@ -13,7 +13,9 @@ int is_digit_string(char *s)
 
 	for (i = 0; s[i]; i++)
 	{
-		if (isalpha(s[i]))
+		if (s[i] == '-')
+			continue;
+		if (isalpha(s[i]) || !isdigit(s[i]))
 			return (0);
 	}
 	return (1);
