@@ -38,6 +38,9 @@ void push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
+	if (!stack)
+		return;
+
 	temp = malloc(sizeof(stack_t));
 	if (!temp)
 	{
