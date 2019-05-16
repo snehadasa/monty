@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-int n = 0;
+int n;
 
 /**
  * get_op - selects correct function for format
