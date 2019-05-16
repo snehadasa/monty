@@ -1,4 +1,5 @@
 #include "monty.h"
+#include <ctype.h>
 
 char *n_str;
 
@@ -14,7 +15,7 @@ int is_digit_string(char *s)
 
 	for (i = 0; s[i]; i++)
 	{
-		if (s[i] < '0' || s[i] > '9')
+		if (isalpha(s[i]))
 			return (0);
 	}
 	return (1);
