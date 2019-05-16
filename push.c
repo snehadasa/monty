@@ -1,6 +1,8 @@
 #include "monty.h"
 #include <ctype.h>
 
+void free_stack(stack_t *stack);
+
 char *n_str;
 
 /**
@@ -34,6 +36,7 @@ void push(stack_t **stack, unsigned int line_number)
 	if (!n_str || !is_digit_string(n_str))
 	{
 		dprintf(STDERR_FILENO, "L%d: usage: push integer\n", line_number);
+		free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
 

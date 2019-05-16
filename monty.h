@@ -39,7 +39,21 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-extern char *n_str;
+/**
+ * struct globals_s - Contains global variables
+ * @n_str: Operand string for push
+ * @buffer: Buffer in which to copy file lines
+ * @file: Monty file
+ *
+ * Description: Globals to free from anywhere
+ */
+typedef extern struct globals_s =
+{
+	char *n_str;
+	char *buffer;
+	FILE *file;
+} globals_t;
+
 void pall(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
@@ -51,5 +65,6 @@ void _div(stack_t **stack, unsigned int line_number);
 void mul(stack_t **stack, unsigned int line_number);
 void mod(stack_t **stack, unsigned int line_number);
 int is_digit_string(char *s);
+void free_stack(stack_t *stack);
 
 #endif
