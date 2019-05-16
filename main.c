@@ -73,7 +73,7 @@ void check_args(int ac, char *file)
 	}
 	if (access(file, R_OK))
 	{
-		dprintf(STDERR_FILENO, "Error: Can't open file %s\n", av[1]);
+		dprintf(STDERR_FILENO, "Error: Can't open file %s\n", file);
 		exit(EXIT_FAILURE);
 	}
 }
