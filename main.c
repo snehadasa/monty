@@ -15,7 +15,6 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 	instruction_t function[] = {
 		{"push", push},
 		{"pall", pall},
-		{"nop", NULL},
 		{"pint", pint},
 		{"pop", pop},
 		{"swap", swap},
@@ -86,12 +85,19 @@ int main(int ac, char **av)
 		if (gl_status == EOF)
 			break;
 		opcode = strtok(buffer, " \t\n");
+		if (!strcmp(opcode, "nop"))
+			continue;
 		if (get_op(opcode))
 		{
 			n_str = strtok(NULL, " \t\n");
 			if (n_str)
 				n = atoi(n_str);
 			get_op(opcode)(&top, line_number);
+		}
+		else
+		{
+			dprintf(STDERR_FILENO, "L%d: unknown instruction %s\n", line_number, opcode);
+			return (EXIT_FAILURE);
 		}
 	}
 	if (buffer)
