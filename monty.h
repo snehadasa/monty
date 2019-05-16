@@ -38,7 +38,7 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-extern int n;
+extern char *n_str;
 void pall(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
@@ -49,5 +49,6 @@ void sub(stack_t **stack, unsigned int line_number);
 void _div(stack_t **stack, unsigned int line_number);
 void mul(stack_t **stack, unsigned int line_number);
 void mod(stack_t **stack, unsigned int line_number);
+int is_digit_string(char *s);
 
 #endif
