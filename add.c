@@ -20,7 +20,5 @@ void add(stack_t **stack, unsigned int line_number)
 
 	((*stack)->next)->n = sum;
 
-	free(*stack);
-
 	pop(stack, line_number);
 }
