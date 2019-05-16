@@ -12,7 +12,7 @@ void add(stack_t **stack, unsigned int line_number)
 
 	if (!stack || !(*stack) || !(*stack)->next)
 	{
-		printf("L%u: can't sub, stack too short\n", line_number);
+		dprintf(STDERR_FILENO, "L%u: can't sub, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
