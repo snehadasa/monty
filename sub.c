@@ -15,7 +15,7 @@ void sub(stack_t **stack, unsigned int line_number)
 		printf("L%u: can't sub, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	
+
 	minus = -((*stack)->n - ((*stack)->next)->n);
 
 	((*stack)->next)->n = minus;

@@ -20,10 +20,10 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
-		/*{"sub", sub},
-		{"div", div},
+		{"sub", sub},
+		{"div", _div},
 		{"mul", mul},
-		{"mod", mod},*/
+		{"mod", mod},
 		{NULL, NULL}
 	};
 	int i = 0;
@@ -38,6 +38,11 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 	return (function[i].f);
 }
 
+/**
+ * free_stack - free stack.
+ * @stack: head of the linked list.
+ * Return: void
+ */
 void free_stack(stack_t *stack)
 {
 	stack_t *temp;
@@ -59,9 +64,8 @@ int main(int ac, char **av)
 	FILE *file;
 	char *buffer = NULL;
 	size_t bufsize = 0;
-	int gl_status;
+	int gl_status, line_number = 0;
 	char *opcode = NULL, *n_str = NULL;
-	int line_number = 0;
 	stack_t *top = NULL;
 
 	if (ac != 2)
@@ -71,33 +75,24 @@ int main(int ac, char **av)
 		printf("Error: Can't open file %s\n", av[1]);
 		exit(EXIT_FAILURE);
 	}
-	else
+	file = fopen(av[1], "r");
+	while (1)
 	{
-		file = fopen(av[1], "r");
-		while (1)
+		line_number++;
+		gl_status = getline(&buffer, &bufsize, file);
+		if (gl_status == EOF)
 		{
-			line_number++;
-			gl_status = getline(&buffer, &bufsize, file);
-			if (gl_status == EOF)
-			{
-				free(buffer);
-				buffer = NULL;
-				break;
-			}
-			opcode = strtok(buffer, " \t\n");
-			/*printf("opcode: %s\n", opcode);*/
-			if (get_op(opcode))
-			{
-				if (opcode)
-				{
-					n_str = strtok(NULL, " \t\n");
-					if (n_str)
-						n = atoi(n_str);
-					else
-						n = line_number;
-				}
-				get_op(opcode)(&top, n);
-			}
+			free(buffer);
+			buffer = NULL;
+			break;
+		}
+		opcode = strtok(buffer, " \t\n");
+		if (get_op(opcode))
+		{
+			n_str = strtok(NULL, " \t\n");
+			if (n_str)
+				n = atoi(n_str);
+			get_op(opcode)(&top, line_number);
 		}
 	}
 	if (buffer)
@@ -106,4 +101,3 @@ int main(int ac, char **av)
 	fclose(file);
 	return (0);
 }
-
