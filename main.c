@@ -102,7 +102,7 @@ int main(int ac, char **av)
 		if (gl_status == EOF)
 			break;
 		opcode = strtok(globals.buffer, " \t\n");
-		if (!strcmp(opcode, "nop"))
+		if (!opcode || !strcmp(opcode, "nop"))
 			continue;
 		if (get_op(opcode))
 		{
@@ -116,12 +116,12 @@ int main(int ac, char **av)
 			free(globals.buffer);
 			free_stack(top);
 			fclose(globals.file);
-			return (EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		}
 	}
 	if (globals.buffer)
 		free(globals.buffer);
 	free_stack(top);
 	fclose(globals.file);
-	return (0);
+	return (EXIT_SUCCESS);
 }
