@@ -1,14 +1,40 @@
 #include "monty.h"
 
+char *n_str;
+
+/**
+ * is_digit_string - Check if string is all digits
+ * @s: String to check
+ *
+ * Return: 1 if string only has digits, 0 otherwise
+ */
+int is_digit_string(char *s)
+{
+	int i;
+
+	for (i = 0; s[i]; i++)
+	{
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
+	}
+	return (1);
+}
+
 /**
  * push - to add the node at the beginning of the list.
  * @stack: head of the doubly linked list.
  * @line_number: number to be added.
  * Return: void.
  */
-void push(stack_t **stack, __attribute__((unused)) unsigned int line_number)
+void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp;
+
+	if (!n_str || !is_digit_string(n_str))
+	{
+		dprintf(STDERR_FILENO, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 
 	temp = malloc(sizeof(stack_t));
 	if (!temp)
@@ -17,7 +43,7 @@ void push(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	temp->n = n;
+	temp->n = atoi(n_str);
 
 	temp->next = *stack;
 	temp->prev = NULL;
