@@ -58,6 +58,32 @@ void free_stack(stack_t *stack)
 	stack = NULL;
 }
 
+/**
+ * check_args - checks arguments
+ * @ac: number of input arguments
+ * @file: input file
+ * Return: void
+ */
+void check_args(int ac, char *file)
+{
+	if (ac != 2)
+	{
+		dprintf(STDERR_FILENO, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
+	if (access(file, R_OK))
+	{
+		dprintf(STDERR_FILENO, "Error: Can't open file %s\n", av[1]);
+		exit(EXIT_FAILURE);
+	}
+}
+
+/**
+ * main - main function
+ * @ac: number of input arguments
+ * @av: array of arguments
+ * Return: 0 if success, 1 if failure
+ */
 int main(int ac, char **av)
 {
 	FILE *file;
@@ -67,16 +93,7 @@ int main(int ac, char **av)
 	char *opcode = NULL, *n_str = NULL;
 	stack_t *top = NULL;
 
-	if (ac != 2)
-	{
-		dprintf(STDERR_FILENO, "USAGE: monty file\n");
-		return (EXIT_FAILURE);
-	}
-	if (access(av[1], R_OK))
-	{
-		dprintf(STDERR_FILENO, "Error: Can't open file %s\n", av[1]);
-		return (EXIT_FAILURE);
-	}
+	check_args(ac, av[1]);
 	file = fopen(av[1], "r");
 	while (1)
 	{
@@ -96,7 +113,8 @@ int main(int ac, char **av)
 		}
 		else
 		{
-			dprintf(STDERR_FILENO, "L%d: unknown instruction %s\n", line_number, opcode);
+			dprintf(
+			STDERR_FILENO, "L%d: unknown instruction %s\n", line_number, opcode);
 			return (EXIT_FAILURE);
 		}
 	}

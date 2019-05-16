@@ -1,10 +1,10 @@
 #include "monty.h"
 
 /**
- * div - prints elements present in the list.
+ * _div - prints elements present in the list.
  * @stack: list to be printed
  * @line_number: the current pointing line
- * Return: elements in the list "h".
+ * Return: elements in the list.
  */
 void _div(stack_t **stack, unsigned int line_number)
 {
