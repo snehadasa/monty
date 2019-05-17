@@ -104,10 +104,8 @@ int main(int ac, char **av)
 		gl_status = getline(&(globals.buffer), &bufsize, globals.file);
 		if (gl_status == EOF)
 			break;
-		if (globals.buffer[0] == '#')
-			continue;
 		opcode = strtok(globals.buffer, " \t\n");
-		if (!opcode || !strcmp(opcode, "nop"))
+		if (!opcode || !strcmp(opcode, "nop") || opcode[0] == '#')
 			continue;
 		if (get_op(opcode))
 		{
