@@ -46,7 +46,7 @@ void push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	temp = malloc(sizeof(stack_t *));
+	temp = malloc(sizeof(stack_t));
 	if (!temp)
 	{
 		dprintf(STDERR_FILENO, "Error: malloc failed\n");
