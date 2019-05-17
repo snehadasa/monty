@@ -9,8 +9,7 @@
  */
 void pop(stack_t **stack,  __attribute__((unused)) unsigned int line_number)
 {
-	stack_t *delete_node;
-
+	stack_t *delete_node = NULL;
 
 	if (!stack || (*stack == NULL))
 	{

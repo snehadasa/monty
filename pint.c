@@ -8,7 +8,7 @@
  */
 void pint(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current = *stack;
+	stack_t *current = NULL;
 
 	if (!stack || !(*stack))
 	{
@@ -19,5 +19,7 @@ void pint(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	 printf("%d\n", current->n);
+	current = *stack;
+
+	printf("%d\n", current->n);
 }

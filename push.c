@@ -11,6 +11,9 @@ int is_digit_string(char *s)
 {
 	int i;
 
+	if (!s)
+		return (0);
+
 	for (i = 0; s[i]; i++)
 	{
 		if (s[i] == '-')
@@ -31,6 +34,9 @@ void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp;
 
+	if (!stack)
+		return;
+
 	if (!globals.n_str || !is_digit_string(globals.n_str))
 	{
 		dprintf(STDERR_FILENO, "L%d: usage: push integer\n", line_number);
@@ -39,9 +45,6 @@ void push(stack_t **stack, unsigned int line_number)
 		fclose(globals.file);
 		exit(EXIT_FAILURE);
 	}
-
-	if (!stack)
-		return;
 
 	temp = malloc(sizeof(stack_t));
 	if (!temp)
@@ -72,8 +75,13 @@ void push(stack_t **stack, unsigned int line_number)
  */
 void pall(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
-	stack_t *current = *stack;
+	stack_t *current = NULL;
 
+	if (!stack)
+		return;
+
+	current = *stack;
+	
 	while (current)
 	{
 		printf("%d\n", current->n);
