@@ -92,21 +92,20 @@ void check_args(int ac, char *file)
  */
 int main(int ac, char **av)
 {
-	/*FILE *file;*/
-	/*char *buffer = NULL;*/
 	size_t bufsize = 0;
 	int gl_status, line_number = 0;
 	char *opcode = NULL;
 	stack_t *top = NULL;
 
 	check_args(ac, av[1]);
-
 	while (1)
 	{
 		line_number++;
 		gl_status = getline(&(globals.buffer), &bufsize, globals.file);
 		if (gl_status == EOF)
 			break;
+		if (globals.buffer[0] == '#')
+			continue;
 		opcode = strtok(globals.buffer, " \t\n");
 		if (!opcode || !strcmp(opcode, "nop"))
 			continue;
