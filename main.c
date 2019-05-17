@@ -76,6 +76,12 @@ void check_args(int ac, char *file)
 		dprintf(STDERR_FILENO, "Error: Can't open file %s\n", file);
 		exit(EXIT_FAILURE);
 	}
+	globals.file = fopen(file, "r");
+	if (!globals.file)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't open file %s\n", file);
+		exit(EXIT_FAILURE);
+	}
 }
 
 /**
@@ -94,7 +100,7 @@ int main(int ac, char **av)
 	stack_t *top = NULL;
 
 	check_args(ac, av[1]);
-	globals.file = fopen(av[1], "r");
+
 	while (1)
 	{
 		line_number++;
