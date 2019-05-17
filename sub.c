@@ -16,11 +16,9 @@ void sub(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	minus = -((*stack)->n - ((*stack)->next)->n);
+	minus = (*stack)->next->n - (*stack)->n;
 
 	((*stack)->next)->n = minus;
-
-	free(*stack);
 
 	pop(stack, line_number);
 }
